@@ -22,6 +22,15 @@ class AppStore {
     EventBus.$emit('user-disconnected', disconnected);
   }
 
+  addUser(user) {
+    this.state.users.push(user);
+  }
+
+  removeUser(user) {
+    console.log(user.id);
+    this.state.users = this.state.users.filter((u) => u.id !== user.id)
+  }
+
 }
 
 export default new AppStore();

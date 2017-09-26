@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Je suis la homepage</h1>
-    <users-list></users-list>
+    <!--<users-list users=""></users-list>-->
   </div>
 </template>
 
@@ -9,15 +9,13 @@
 
   import store from '../../stores/AppStore';
   import {EventBus} from "../../main";
-  import UsersList from "../UsersList.vue";
+  import UsersList from "../users/UsersList.vue";
+  import {socket} from '../../main';
 
 
   export default {
     components: {UsersList},
     name: 'homepage',
-    props: {
-      users: {type: Array, required: true}
-    },
     data() {
       return {
         state: store.state

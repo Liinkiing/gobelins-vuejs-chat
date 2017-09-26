@@ -6,6 +6,8 @@ import router from './router'
 
 export const EventBus = new Vue();
 
+export let socket = io.connect("http://localhost:3000");
+
 Vue.config.productionTip = false;
 
 

@@ -1,18 +1,13 @@
 <template>
-  <div class="users-list">
+  <div class="user">
 
   </div>
 </template>
 
 <script>
-
-
-
   export default {
-    name: 'usersList',
-    components: {
-
-    }
+    name: 'user',
+    props: {user: Object, required: true}
   }
 </script>
 
