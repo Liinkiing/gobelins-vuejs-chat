@@ -30,12 +30,19 @@
           console.log("Connecté au serveur WebSocket");
       });
       socket.on('user connected', (user) => {
-        console.log(user, "s'est connecté");
-        store.addUser(user);
+          store.setLoggedUserId(user.id);
       });
-      socket.on('user disconnected', (user) => {
+      socket.on('user joined', (users) => {
+        console.log(users);
+        if(store.state.user && "id" in store.state.user) {
+          for(let user of users.filter(u => u.id !== store.state.user.id)) {
+            store.addUser(user);
+          }
+        }
+      });
+      socket.on('user left', (id) => {
         console.log("déco");
-        store.removeUser(user);
+        store.removeUser(id);
       });
       if (localStorage.getItem("user")) {
         let user = User.fromJSON(localStorage.getItem("user"));
@@ -46,15 +53,13 @@
       disconnectUser() {
         store.disconnectUser();
       },
-
       onUserDisconnected(user) {
-        console.log(user.username + " s'est déconnecté");
         socket.emit('user disconnected', user);
         this.$router.push({name: 'login'})
       },
       onUserConnected(user) {
-//        console.log(user.username + " s'est connecté");
         socket.emit('user connected', user);
+        socket.emit('user joined', user);
         this.$router.push({name: 'home'})
       }
     }

@@ -26,9 +26,12 @@ class AppStore {
     this.state.users.push(user);
   }
 
-  removeUser(user) {
-    console.log(user.id);
-    this.state.users = this.state.users.filter((u) => u.id !== user.id)
+  setLoggedUserId(id) {
+    this.state.user.id = id;
+  }
+
+  removeUser(id) {
+    this.state.users = this.state.users.filter((u) => u.id !== id)
   }
 
 }
