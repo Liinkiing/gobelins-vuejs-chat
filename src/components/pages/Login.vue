@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Je suis la page de login</h1>
-    <form>
+    <form @submit.prevent="connectUser">
       <label>Nom d'utilisateur
-        <input type="text" v-model="user" placeholder="Votre nom d'utilisateur">
+        <input type="text" v-model="username" placeholder="Votre nom d'utilisateur">
         <button type="submit">Valider</button>
       </label>
     </form>
@@ -13,13 +13,22 @@
 <script>
 
   import store from '../../stores/AppStore';
+  import User from "../../models/User";
+
+  import {EventBus} from '../../main'
 
   export default {
     name: 'login',
     data() {
       return {
         state: store.state,
-        user: ""
+        username: ""
+      }
+    },
+    methods: {
+      connectUser() {
+        let user = new User(this.username);
+        store.connectUser(user);
       }
     },
     created() {

@@ -1,17 +1,19 @@
+let md5 = require('blueimp-md5');
+
 class User {
-  get avatarUrl() {
-    return this._avatarUrl;
+
+  static fromJSON(userString) {
+    let user = JSON.parse(userString);
+    if(!user.hasOwnProperty("username")) return null;
+    return new User(user.username);
   }
 
-  get username() {
-    return this._username;
-  }
 
   constructor(username) {
-    this._username = username
-    // this._avatarUrl = require('blueimp-md5')()
+    this.username = username;
+    this.avatarUrl = `https://www.gravatar.com/avatar/${md5(this.username)}`
   }
 
 }
 
-export default new User()
+export default User;
