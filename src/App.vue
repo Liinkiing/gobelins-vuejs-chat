@@ -11,10 +11,8 @@
 <script>
 
   import store from './stores/AppStore';
-  import {EventBus} from "./main";
+  import {socket, EventBus} from "./main";
   import User from "./models/User";
-
-  import {socket} from './main';
 
   export default {
     name: 'app',
