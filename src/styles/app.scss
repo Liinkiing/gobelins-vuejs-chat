@@ -1,5 +1,8 @@
-@import "./components/palette";
-@import "./components/layout";
+@import "utils/bootstrap";
+
+body, button, input, label {
+  font-family: 'Signika Negative', 'Rubik', sans-serif;
+}
 
 body {
   background: #fff;
