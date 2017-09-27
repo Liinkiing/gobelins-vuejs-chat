@@ -5,8 +5,19 @@ class AppStore {
   constructor() {
     this.state = {
       user: null,
-      users: []
+      users: [],
+      canWizz: true,
+      wizzing: false,
+      wizzWaitTime: 5000
     }
+  }
+
+  setCanWizz(value) {
+    this.state.canWizz = value;
+  }
+
+  setWizzing(value) {
+    this.state.wizzing = value;
   }
 
   connectUser(user) {

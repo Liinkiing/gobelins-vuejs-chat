@@ -1,12 +1,8 @@
 <template>
   <div class="chat">
     <h2>Chat</h2>
-    <ul>
-      <li v-for="message in messages">
-        <p class="body">{{ message.body }}</p>
-        <div class="author">{{ message.author.username }}</div>
-        <div class="timestamp">{{ message.createdAt }}</div>
-      </li>
+    <ul class="chat-room">
+      <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
     </ul>
     <chat-form></chat-form>
   </div>
@@ -16,23 +12,33 @@
   import ChatForm from "./ChatForm.vue";
   import chatStore from '../../stores/ChatStore';
   import {EventBus, socket} from "../../main";
+  import ChatMessage from "./ChatMessage.vue";
 
   export default {
-    components: {ChatForm},
+    components: {
+      ChatMessage,
+      ChatForm
+    },
     name: 'Chat',
     props: {
       messages: {type: Array, required: true}
     },
     created() {
       console.log("chat init");
-        EventBus.$on('message.send', (message) => {
-          console.log("message", message, "envoyé depuis le client");
-          socket.emit('new message', message);
-        });
-        socket.on('new message', (message) => {
-          console.log(message, "envoyé de ", message.author);
-          chatStore.pushMessage(message);
-        })
+      socket.on('command issued', (data) => {
+        console.log(data);
+        if(data.command === "PLAY_AUDIO") {
+//          import audio from '../../assets/sounds/johncena.mp3';
+        }
+      });
+      EventBus.$on('message.send', (message) => {
+        console.log("message", message, "envoyé depuis le client");
+        socket.emit('new message', message);
+      });
+      socket.on('new message', (message) => {
+        EventBus.$emit("message.received", message);
+        chatStore.pushMessage(message);
+      })
     },
     beforeDestroy() {
       console.log("detruit");
@@ -40,9 +46,7 @@
       EventBus.$off('message.send');
     },
     data() {
-      return {
-
-      }
+      return {}
     }
   }
 </script>

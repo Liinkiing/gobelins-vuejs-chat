@@ -9,10 +9,10 @@ class ChatStore {
     }
   }
 
-  addMessage(message, author) {
-    let m = new Message(message, author);
-    this.state.messages.push(m);
-    EventBus.$emit('message.send', m);
+  addMessage(message) {
+    console.log(message);
+    this.state.messages.push(message);
+    if(!message.isBot) EventBus.$emit('message.send', message);
   }
 
   pushMessage(message) {

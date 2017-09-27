@@ -4,9 +4,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import 'animate.css/animate.css'
+
 export const EventBus = new Vue();
 
-export let socket = io.connect("http://localhost:3000");
+
+export let socket = io.connect("http://3dd53eee.ngrok.io");
 
 Vue.config.productionTip = false;
 

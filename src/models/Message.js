@@ -1,9 +1,10 @@
 class Message {
 
-  constructor(body, author) {
+  constructor(body, author, isBot = false) {
     this.body = body;
     this.createdAt = Date.now();
     this.author = author;
+    this.isBot = isBot;
   }
 
 }

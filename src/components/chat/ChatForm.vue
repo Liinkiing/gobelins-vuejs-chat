@@ -2,7 +2,11 @@
   <div>
     <form @submit.prevent="send">
       <input type="text" placeholder="Votre message..." v-model="message">
+      <button :disabled="!appState.canWizz" type="button" @click="sendWizz">Wizz</button>
       <button>Envoyer</button>
+      <transition name="fade">
+        <span v-if="error" class="error">{{ error }}</span>
+      </transition>
     </form>
   </div>
 </template>
@@ -19,19 +23,46 @@
     name: 'ChatForm',
     data() {
       return {
+        error: null,
         appState: appStore.state,
         message: ""
       }
     },
     methods: {
       send() {
-        chatStore.addMessage(this.message, appStore.state.user);
-        this.message = "";
+        if (this.message === "") {
+          if(!this.error) this.removeError();
+          this.error = "Le message ne peut être vide";
+          return;
+        } else if (this.message.startsWith("/")) {
+            socket.emit("command", this.message);
+          return;
+        } else {
+          chatStore.addMessage(new Message(this.message, this.appState.user));
+          this.message = "";
+        }
+      },
+      removeError() {
+        setTimeout(function () {
+          console.log("message");
+          this.error = null;
+        }.bind(this), 3000);
+      },
+      sendWizz() {
+        EventBus.$emit("send.wizz");
       }
     }
   }
 </script>
 
 <style lang="scss">
-
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0
+  }
+  span.error {
+    color: red;
+  }
 </style>
