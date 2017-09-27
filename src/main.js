@@ -9,7 +9,7 @@ import 'animate.css/animate.css'
 export const EventBus = new Vue();
 
 
-export let socket = io.connect("http://ea0d74d0.ngrok.io");
+export let socket = io.connect("http://localhost:3000");
 
 Vue.config.productionTip = false;
 

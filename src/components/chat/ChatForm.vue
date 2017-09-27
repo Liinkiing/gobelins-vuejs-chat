@@ -18,6 +18,7 @@
   import chatStore from '../../stores/ChatStore';
 
   import johncena from '../../assets/sounds/johncena.mp3';
+  import ahSound from '../../assets/sounds/ah.mp3';
 
   import {socket, EventBus} from '../../main';
 
@@ -36,6 +37,8 @@
         if(data.command === "PLAY_AUDIO") {
           if(data.payload === "johncena") {
             new Audio(johncena).play();
+          } else if(data.payload === "ah") {
+            new Audio(ahSound).play();
           }
         }
         this.message = "";
