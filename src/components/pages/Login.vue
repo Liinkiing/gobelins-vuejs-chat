@@ -43,7 +43,7 @@
         store.connectUser(user);
       },
       userIsConnected(username) {
-        return store.state.users.filter(u => u.username === username).length > 0;
+        return store.state.users.filter(u => u.username.toLowerCase() === username.toLowerCase()).length > 0;
       },
     },
     created() {
