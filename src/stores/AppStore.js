@@ -8,12 +8,26 @@ class AppStore {
       users: [],
       canWizz: true,
       wizzing: false,
+      theme: 'dark',
       wizzWaitTime: 5000
     }
   }
 
+  setTheme(theme) {
+    this.state.theme = theme;
+    document.body.setAttribute("class", "");
+    document.body.classList.add("theme-" + this.state.theme);
+  }
+
   setCanWizz(value) {
     this.state.canWizz = value;
+  }
+
+  toggleTheme() {
+    this.state.theme = this.state.theme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", this.state.theme);
+    document.body.setAttribute("class", "");
+    document.body.classList.add("theme-" + this.state.theme);
   }
 
   setWizzing(value) {

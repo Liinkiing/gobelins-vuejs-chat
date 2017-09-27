@@ -1,0 +1,38 @@
+input {
+  position: relative;
+  border: none;
+  padding: 20px 5px 20px 0;
+  width: 100%;
+  margin: 20px 0;
+  background: transparent;
+  outline: none;
+  color: $white;
+  &:focus + .separator {
+    transform: scaleX(1) translateY(-20px);
+    opacity: 1;
+  }
+}
+
+label {
+  opacity: 0.7;
+}
+
+input + .separator {
+  height: 2px;
+  width: 100%;
+  background: $white;
+  display: block;
+  transform: scaleX(0) translateY(-20px);
+  transform-origin: 50%;
+  opacity: 0;
+  transition: transform $transition_duration ease-in-out, opacity .15s;
+}
+
+body.theme-light input {
+  color: $shark_grey;
+}
+
+body.theme-light input + .separator {
+  background: $shark_grey;
+  opacity: 0.7;
+}

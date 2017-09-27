@@ -1,9 +1,36 @@
 @import "utils/bootstrap";
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
 body, button, input, label {
   font-family: 'Signika Negative', 'Rubik', sans-serif;
 }
 
+
 body {
-  background: #fff;
+  overflow-y: hidden;
+  transition: all $transition_duration ease-in-out;
+  &.theme {
+    &-light {
+      background: $whitesmoke;
+      color: $shark_darker_grey;
+    }
+    &-dark {
+      background: $shark_grey;
+      color: $white;
+    }
+  }
+
+
+}
+
+.page {
+  display: flex;
+  min-height: 100vh;
 }

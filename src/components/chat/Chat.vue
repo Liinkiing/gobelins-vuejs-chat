@@ -1,6 +1,5 @@
 <template>
   <div class="chat">
-    <h2>Chat</h2>
     <ul class="chat-room">
       <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
     </ul>

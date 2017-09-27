@@ -1,5 +1,5 @@
-$white: #fff;
-$whitesmoke: #eeeeee;
+$white: #f9f9f9;
+$whitesmoke: #f4f4f4;
 $white_grey: #ededed;
 
 $shark_grey: #2a2c32;
@@ -8,7 +8,7 @@ $shark_darker_grey: #191b22;
 
 $red: #b5263e;
 $rose: #db4a64;
-$pale_green: #c5f3df;
+$light_green: #c5f3df;
 $violet: #9173f4;
 $orange: #e16a65;
 $pale_red: #e74d58;
@@ -18,3 +18,12 @@ $pale_green: #73e6ae;
 $pale_yellow: #fdf9a7;
 $yellow: #f9df8b;
 $blue: #6fb1ed;
+
+
+$colors: (
+  red:$red, rose:$rose, light_green:$light_green, violet:$violet, orange:$orange,
+  pale_red:$pale_red, cyan:$cyan, dark_green:$dark_green, pale_green:$pale_green,
+  pale_yellow:$pale_yellow, yellow:$yellow, blue:$blue);
+$colorsName: (red, rose, light_green, violet, orange, pale_red, cyan, dark_green,
+pale_green, pale_yellow, yellow, blue);
+

@@ -1,0 +1,37 @@
+.button {
+  transition: all $transition_duration;
+  outline: none;
+  border: none;
+  padding: 15px 40px;
+  border-radius: $border_radius;
+  background: $whitesmoke;
+  margin: 10px;
+  &:hover {
+    background: darken($whitesmoke, 10%);
+    cursor: pointer;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  &.button-disconnect {
+    background: $pale_green;
+    color: $whitesmoke;
+    &:hover {
+      background: $dark_green;
+    }
+  }
+}
+
+body.theme-light .button {
+  background: $shark_grey;
+  color: $white;
+  &:hover {
+    background: lighten($shark_grey, 5%);
+    cursor: pointer;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

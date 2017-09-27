@@ -3,7 +3,10 @@
 /* Utils */
 @import "normalize";
 @import "palette";
+@import "variables";
 @import "layout";
 
 /* Components */
 @import "../components/buttons";
+@import "../components/forms";
+@import "../components/inputs";

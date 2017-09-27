@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h1>Je suis la homepage</h1>
-    <!--<users-list users=""></users-list>-->
+  <div class="page page-home">
+    <users-list :users="state.users"></users-list>
     <chat :messages="chatState.messages"></chat>
+    <chat-menu></chat-menu>
   </div>
 </template>
 
@@ -15,9 +15,11 @@
   import Chat from "../chat/Chat.vue";
 
   import chatStore from '../../stores/ChatStore';
+  import ChatMenu from "../chat/ChatMenu.vue";
 
   export default {
     components: {
+      ChatMenu,
       Chat,
       UsersList},
     name: 'homepage',
@@ -37,7 +39,19 @@
 </script>
 
 <style lang="scss">
-
+  .page-home {
+    & .users-list {
+      flex: 1;
+      max-width: 300px;
+    }
+    & .chat {
+      flex: 2;
+    }
+    & .chat-menu {
+      max-width: 300px;
+      flex: 1;
+    }
+  }
 </style>
 
 

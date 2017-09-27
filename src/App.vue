@@ -1,12 +1,7 @@
 <template>
   <div id="app">
     <wizz v-if="state.wizzing"></wizz>
-    <button v-if="state.user" @click="disconnectUser">Se déconnecter</button>
-    <h1 v-if="state.user">Connecté en tant que {{ state.user.username }}</h1>
     <router-view></router-view>
-    <ul>
-      <li v-for="user in state.users">{{ user.username }}</li>
-    </ul>
   </div>
 </template>
 
@@ -31,6 +26,12 @@
       }
     },
     created() {
+      if(!localStorage.getItem("theme")) {
+        localStorage.setItem("theme", "dark");
+      }
+      let theme = localStorage.getItem("theme");
+      console.log(theme);
+      store.setTheme(theme);
       EventBus.$on('user-connected', this.onUserConnected);
       EventBus.$on('user-disconnected', this.onUserDisconnected);
       EventBus.$on('send.wizz', this.onWizzSend);
