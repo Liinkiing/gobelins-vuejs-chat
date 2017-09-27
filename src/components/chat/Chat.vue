@@ -14,6 +14,7 @@
   import {EventBus, socket} from "../../main";
   import ChatMessage from "./ChatMessage.vue";
 
+
   export default {
     components: {
       ChatMessage,
@@ -25,12 +26,6 @@
     },
     created() {
       console.log("chat init");
-      socket.on('command issued', (data) => {
-        console.log(data);
-        if(data.command === "PLAY_AUDIO") {
-//          import audio from '../../assets/sounds/johncena.mp3';
-        }
-      });
       EventBus.$on('message.send', (message) => {
         console.log("message", message, "envoyé depuis le client");
         socket.emit('new message', message);
@@ -38,16 +33,14 @@
       socket.on('new message', (message) => {
         EventBus.$emit("message.received", message);
         chatStore.pushMessage(message);
-      })
+      });
+
     },
     beforeDestroy() {
       console.log("detruit");
       socket.off('new message');
       EventBus.$off('message.send');
     },
-    data() {
-      return {}
-    }
   }
 </script>
 

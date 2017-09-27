@@ -17,6 +17,8 @@
   import appStore from '../../stores/AppStore';
   import chatStore from '../../stores/ChatStore';
 
+  import johncena from '../../assets/sounds/johncena.mp3';
+
   import {socket, EventBus} from '../../main';
 
   export default {
@@ -28,15 +30,24 @@
         message: ""
       }
     },
+    created() {
+      console.log("créé");
+      socket.on('command issued', (data) => {
+        if(data.command === "PLAY_AUDIO") {
+          if(data.payload === "johncena") {
+            new Audio(johncena).play();
+          }
+        }
+        this.message = "";
+      })
+    },
     methods: {
       send() {
         if (this.message === "") {
           if(!this.error) this.removeError();
           this.error = "Le message ne peut être vide";
-          return;
         } else if (this.message.startsWith("/")) {
-            socket.emit("command", this.message);
-          return;
+            socket.emit('command', this.message);
         } else {
           chatStore.addMessage(new Message(this.message, this.appState.user));
           this.message = "";
