@@ -26,6 +26,10 @@ class AppStore {
     this.state.users.push(user);
   }
 
+  setUsers(users) {
+    this.state.users = users;
+  }
+
   setLoggedUserId(id) {
     this.state.user.id = id;
   }

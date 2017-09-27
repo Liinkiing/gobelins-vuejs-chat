@@ -24,12 +24,20 @@
       messages: {type: Array, required: true}
     },
     created() {
-        EventBus.$once('message.send', (message) => {
+      console.log("chat init");
+        EventBus.$on('message.send', (message) => {
+          console.log("message", message, "envoyé depuis le client");
           socket.emit('new message', message);
         });
         socket.on('new message', (message) => {
+          console.log(message, "envoyé de ", message.author);
           chatStore.pushMessage(message);
         })
+    },
+    beforeDestroy() {
+      console.log("detruit");
+      socket.off('new message');
+      EventBus.$off('message.send');
     },
     data() {
       return {

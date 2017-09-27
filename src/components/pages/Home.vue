@@ -32,9 +32,12 @@
         this.$router.push('login')
       }
     }
+    //BRAVO OMAR
   }
 </script>
 
 <style lang="scss">
 
 </style>
+
+
