@@ -63,6 +63,10 @@ class AppStore {
     this.state.users = this.state.users.filter((u) => u.id !== id)
   }
 
+  getUserById(id) {
+    return this.state.users.filter(u => u.id === id)[0];
+  }
+
 }
 
 export default new AppStore();

@@ -47,16 +47,22 @@
       socket.on('getUsers', (users) => {
         store.setUsers(users);
       });
-      socket.on('user joined', (users) => {
-        console.log("connexion d'un nouvel utilisateur", users);
-        let final = users.filter(u => {
+      socket.on('user joined', (data) => {
+        console.log("connexion d'un nouvel utilisateur", data.new);
+        let final = data.clients.filter(u => {
           if (this.state.user === null) return true; else return u.id !== store.state.user.id
         });
+        console.log("liste des utilisateurs", final);
         store.setUsers(final);
       });
-      socket.on('user left', (id) => {
-        console.log("déco de " + id);
-        store.removeUser(id);
+      socket.on('user disconnected', (user) => {
+        console.log("déco de ", user, user.id);
+        chatStore.sendMessageWithBot(`${user.username} s'est déconnecté`);
+        this.$nextTick(() => {
+          let chat = document.querySelector(".chat-room");
+          if(chat) chat.scrollTop = document.querySelector(".chat-room").scrollHeight;
+        });
+        store.removeUser(user.id);
       });
       if (localStorage.getItem("user")) {
         let user = User.fromJSON(localStorage.getItem("user"));
@@ -74,7 +80,6 @@
       onUserDisconnected(user) {
         console.log("déco client");
         socket.emit('user disconnected', user);
-        socket.emit('user left', user.id);
         this.$router.push({name: 'login'})
       },
       onUserConnected(user) {
@@ -91,10 +96,13 @@
       },
       onWizzReceived(user) {
         if(this.state.user) {
-          let bot = new User("Pipelette");
-          chatStore.addMessage(new Message(`${user.username} a envoyé un putain de wizz de fdp`, bot, true));
+          chatStore.sendMessageWithBot(`${user.username} a envoyé un putain de wizz de fdp`);
           store.setWizzing(true);
           new Audio(wizzSound).play();
+          this.$nextTick(() => {
+            let chat = document.querySelector(".chat-room");
+            if(chat) chat.scrollTop = document.querySelector(".chat-room").scrollHeight;
+          });
           console.log("wizz reçu");
         }
       }

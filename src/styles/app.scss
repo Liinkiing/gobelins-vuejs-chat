@@ -14,7 +14,7 @@ body, button, input, label {
 
 
 body {
-  overflow-y: hidden;
+  overflow: hidden;
   transition: all $transition_duration ease-in-out;
   &.theme {
     &-light {

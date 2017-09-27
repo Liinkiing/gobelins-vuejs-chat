@@ -2,8 +2,8 @@
   <div>
     <form @submit.prevent="send">
       <input type="text" placeholder="Votre message..." v-model="message">
-      <button :disabled="!appState.canWizz" type="button" @click="sendWizz">Wizz</button>
-      <button>Envoyer</button>
+      <button class="button">Envoyer</button>
+      <button class="button" :disabled="!appState.canWizz" type="button" @click="sendWizz">Wizz</button>
       <transition name="fade">
         <span v-if="error" class="error">{{ error }}</span>
       </transition>

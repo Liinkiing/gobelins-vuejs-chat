@@ -45,7 +45,11 @@
       max-width: 300px;
     }
     & .chat {
+      padding: 60px 0;
       flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     & .chat-menu {
       max-width: 300px;

@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <ul class="chat-room">
+    <ul class="chat-room" ref="chat" >
       <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
     </ul>
     <chat-form></chat-form>
@@ -23,15 +23,21 @@
     props: {
       messages: {type: Array, required: true}
     },
-    created() {
+    mounted() {
       console.log("chat init");
       EventBus.$on('message.send', (message) => {
         console.log("message", message, "envoyé depuis le client");
+        this.$nextTick(() => {
+          this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
+        });
         socket.emit('new message', message);
       });
       socket.on('new message', (message) => {
         EventBus.$emit("message.received", message);
         chatStore.pushMessage(message);
+        this.$nextTick(() => {
+          this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
+        });
       });
 
     },
@@ -44,5 +50,9 @@
 </script>
 
 <style lang="scss">
-
+  .chat-room {
+    max-height: calc(100vh - 280px);
+    overflow: auto;
+    flex: 1;
+  }
 </style>
