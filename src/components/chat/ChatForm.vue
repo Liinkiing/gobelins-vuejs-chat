@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="send">
-      <input type="text" placeholder="Votre message..." v-model="message">
+      <input ref="inputMessage" type="text" placeholder="Votre message..." v-model="message">
       <button class="button">Envoyer</button>
       <button class="button" :disabled="!appState.canWizz" type="button" @click="sendWizz">Wizz</button>
       <transition name="fade">
@@ -21,6 +21,8 @@
   import ahSound from '../../assets/sounds/ah.mp3';
 
   import {socket, EventBus} from '../../main';
+  import debounce from 'lodash.debounce';
+  import throttle from 'lodash.throttle';
 
   export default {
     name: 'ChatForm',
@@ -34,23 +36,36 @@
     created() {
       console.log("créé");
       socket.on('command issued', (data) => {
-        if(data.command === "PLAY_AUDIO") {
-          if(data.payload === "johncena") {
+        if (data.command === "PLAY_AUDIO") {
+          if (data.payload === "johncena") {
             new Audio(johncena).play();
-          } else if(data.payload === "ah") {
+          } else if (data.payload === "ah") {
             new Audio(ahSound).play();
           }
         }
         this.message = "";
       })
     },
+    mounted() {
+      this.$refs.inputMessage.addEventListener('keydown', throttle((e) => {
+        console.log(e);
+        if(e.keyCode >= 32 && !e.metaKey && !e.altKey) {
+          EventBus.$emit('typing', appStore.state.user);
+        }
+      }, 1000));
+      this.$refs.inputMessage.addEventListener('keyup', debounce((e) => {
+        if(e.keyCode >= 32 && !e.metaKey && !e.altKey) {
+          EventBus.$emit('stop typing', appStore.state.user);
+        }
+      }, 1000));
+    },
     methods: {
       send() {
         if (this.message === "") {
-          if(!this.error) this.removeError();
+          if (!this.error) this.removeError();
           this.error = "Le message ne peut être vide";
         } else if (this.message.startsWith("/")) {
-            socket.emit('command', this.message);
+          socket.emit('command', this.message);
         } else {
           chatStore.addMessage(this.message);
           this.message = "";
@@ -73,9 +88,11 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }
+
   .fade-enter, .fade-leave-to {
     opacity: 0
   }
+
   span.error {
     color: red;
   }

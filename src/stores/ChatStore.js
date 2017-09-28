@@ -9,8 +9,13 @@ class ChatStore {
 
   constructor() {
     this.state = {
-      messages: []
+      messages: [],
+      someoneWriting: false
     }
+  }
+
+  setSomeoneWriting(value) {
+    this.state.someoneWriting = value;
   }
 
   addMessage(body, isBot = false) {

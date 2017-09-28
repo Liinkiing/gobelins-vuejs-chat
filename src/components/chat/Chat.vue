@@ -3,6 +3,7 @@
     <ul class="chat-room" ref="chat" >
       <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
     </ul>
+    <span v-if="state.someoneWriting" class="is-writing">Quelqu'un est entrain d'écrire...</span>
     <chat-form></chat-form>
   </div>
 </template>
@@ -20,6 +21,11 @@
       ChatForm
     },
     name: 'Chat',
+    data() {
+      return {
+        state: chatStore.state
+      }
+    },
     props: {
       messages: {type: Array, required: true}
     },
@@ -31,6 +37,20 @@
           this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
         });
         socket.emit('new message', body);
+      });
+      EventBus.$on('typing', (user) => {
+        console.log(user, "en train d'écrire");
+        socket.emit('typing', user);
+      });
+      EventBus.$on('stop typing', (user) => {
+        console.log(user, "a arrété d'écrire");
+        socket.emit('stop typing', user);
+      });
+      socket.on('typing', (user) => {
+        chatStore.setSomeoneWriting(true);
+      });
+      socket.on('stop typing', (user) => {
+        chatStore.setSomeoneWriting(false);
       });
       socket.on('new message', (message) => {
         EventBus.$emit("message.received", message);

@@ -45,6 +45,7 @@
         store.setLoggedUser(user);
       });
       socket.on('getUsers', (users) => {
+        console.log('get users', users);
         store.setUsers(users);
       });
       socket.on('user joined', (data) => {
@@ -54,12 +55,6 @@
         });
         console.log("liste des utilisateurs", final);
         store.setUsers(final);
-      });
-      socket.on('user left', (id) => {
-        console.log("déconnexion de " + id);
-        let user = store.getUserById(id);
-        store.removeUser(id);
-        chatStore.sendMessageWithBot(`${user.username} s'est déconnecté`);
       });
       socket.on('user disconnected', (user) => {
         console.log("déco de ", user, user.id);
