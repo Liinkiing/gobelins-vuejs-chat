@@ -60,6 +60,7 @@ class AppStore {
   }
 
   removeUser(id) {
+    console.log(this.state.users.filter((u) => u.id !== id));
     this.state.users = this.state.users.filter((u) => u.id !== id)
   }
 

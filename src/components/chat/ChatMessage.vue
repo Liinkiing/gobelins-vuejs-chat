@@ -11,13 +11,6 @@
     name: 'chatMessage',
     props: {
       message: {type: Object, required: true}
-    },
-    data() {
-      return {
-
-      }
-    },
-    methods: {
     }
   }
 </script>

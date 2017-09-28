@@ -25,12 +25,12 @@
     },
     mounted() {
       console.log("chat init");
-      EventBus.$on('message.send', (message) => {
-        console.log("message", message, "envoyé depuis le client");
+      EventBus.$on('message.send', (body) => {
+        console.log("message", body, "envoyé depuis le client");
         this.$nextTick(() => {
           this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
         });
-        socket.emit('new message', message);
+        socket.emit('new message', body);
       });
       socket.on('new message', (message) => {
         EventBus.$emit("message.received", message);

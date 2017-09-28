@@ -12,12 +12,14 @@
   "dependencies": {
     "@types/animejs": "^2.0.0",
     "@types/socket.io": "^1.4.30",
+    "@types/socket.io-client": "^1.4.30",
     "@types/vue": "^2.0.0",
     "animate.css": "^3.5.2",
     "animejs": "^2.2.0",
     "blueimp-md5": "^2.10.0",
     "lodash.random": "^3.2.0",
     "lodash.shuffle": "^4.2.0",
+    "socket.io-client": "^2.0.3",
     "vue": "^2.4.2",
     "vue-animate": "0.0.4",
     "vue-router": "^2.7.0"

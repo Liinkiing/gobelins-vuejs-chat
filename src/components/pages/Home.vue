@@ -34,7 +34,6 @@
         this.$router.push('login')
       }
     }
-    //BRAVO OMAR
   }
 </script>
 

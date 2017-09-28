@@ -7,10 +7,9 @@ import router from './router'
 
 import 'animate.css/animate.css'
 
+export const socket = io.connect("http://bddi-chat2017.herokuapp.com/");
+
 export const EventBus = new Vue();
-
-
-export let socket = io.connect("http://localhost:3000");
 
 Vue.config.productionTip = false;
 

@@ -52,7 +52,7 @@
         } else if (this.message.startsWith("/")) {
             socket.emit('command', this.message);
         } else {
-          chatStore.addMessage(new Message(this.message, this.appState.user));
+          chatStore.addMessage(this.message);
           this.message = "";
         }
       },

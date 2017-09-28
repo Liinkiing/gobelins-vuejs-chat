@@ -6,6 +6,7 @@
       <blob></blob>
       <blob color="blue"></blob>
       <blob color="pale_green"></blob>
+      <blob color="yellow"></blob>
       <label for="username">Nom d'utilisateur</label>
       <input type="text" id="username" v-model="username" placeholder="Votre nom d'utilisateur">
       <span class="separator">&nbsp;</span>

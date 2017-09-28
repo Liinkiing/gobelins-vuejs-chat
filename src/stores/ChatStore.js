@@ -12,15 +12,14 @@ class ChatStore {
     }
   }
 
-  addMessage(message) {
-    console.log(message);
-    this.state.messages.push(message);
-    if(!message.isBot) EventBus.$emit('message.send', message);
+  addMessage(body, isBot = false) {
+    console.log(body);
+    if(!isBot) EventBus.$emit('message.send', body);
   }
 
   sendMessageWithBot(text) {
     let bot = new User("Pipelette");
-    this.addMessage(new Message(text, bot, true));
+    this.pushMessage(new Message(text, bot, true), true);
   }
 
   pushMessage(message) {

@@ -45,7 +45,7 @@
         store.setLoggedUserId(user.id);
       });
       socket.on('getUsers', (users) => {
-        store.setUsers(users);
+          store.setUsers(users);
       });
       socket.on('user joined', (data) => {
         console.log("connexion d'un nouvel utilisateur", data.new);
@@ -54,6 +54,12 @@
         });
         console.log("liste des utilisateurs", final);
         store.setUsers(final);
+      });
+      socket.on('user left', (id) => {
+        console.log("déconnexion de " + id);
+        let user = store.getUserById(id);
+        store.removeUser(id);
+        chatStore.sendMessageWithBot(`${user.username} s'est déconnecté`);
       });
       socket.on('user disconnected', (user) => {
         console.log("déco de ", user, user.id);
@@ -92,7 +98,7 @@
         store.setCanWizz(false);
         store.setWizzing(true);
         setTimeout(function() {store.setCanWizz(true); store.setWizzing(false)}.bind(this), 1000);
-        socket.emit("wizz", this.state.user);
+        socket.emit("wizz");
       },
       onWizzReceived(user) {
         if(this.state.user) {
