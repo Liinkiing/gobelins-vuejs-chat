@@ -26,7 +26,7 @@
       }
     },
     created() {
-      if(!localStorage.getItem("theme")) {
+      if (!localStorage.getItem("theme")) {
         localStorage.setItem("theme", "dark");
       }
       let theme = localStorage.getItem("theme");
@@ -41,11 +41,11 @@
       });
       socket.on('wizz', this.onWizzReceived);
       socket.on('user connected', (user) => {
-        console.log("connexion de " + user.id);
-        store.setLoggedUserId(user.id);
+        console.log("connexion de ", user);
+        store.setLoggedUser(user);
       });
       socket.on('getUsers', (users) => {
-          store.setUsers(users);
+        store.setUsers(users);
       });
       socket.on('user joined', (data) => {
         console.log("connexion d'un nouvel utilisateur", data.new);
@@ -66,7 +66,7 @@
         chatStore.sendMessageWithBot(`${user.username} s'est déconnecté`);
         this.$nextTick(() => {
           let chat = document.querySelector(".chat-room");
-          if(chat) chat.scrollTop = document.querySelector(".chat-room").scrollHeight;
+          if (chat) chat.scrollTop = document.querySelector(".chat-room").scrollHeight;
         });
         store.removeUser(user.id);
       });
@@ -79,9 +79,14 @@
       disconnectUser() {
         store.disconnectUser();
       },
+      randomColor() {
+        let colors = ["red", "rose", "light_green", "violet", "orange", "pale_red", "cyan", "dark_green",
+          "pale_green", "pale_yellow", "yellow", "blue"];
+        return colors[Math.floor(Math.random()*colors.length)];
+      },
       onMessageReceived(message) {
         console.log(message, "envoyé de ", message.author);
-        new Audio(messageSound).play();
+        if(!chatStore.isMessageFromCurrentUser(message)) new Audio(messageSound).play();
       },
       onUserDisconnected(user) {
         console.log("déco client");
@@ -97,17 +102,20 @@
       onWizzSend() {
         store.setCanWizz(false);
         store.setWizzing(true);
-        setTimeout(function() {store.setCanWizz(true); store.setWizzing(false)}.bind(this), 1000);
+        setTimeout(function () {
+          store.setCanWizz(true);
+          store.setWizzing(false)
+        }.bind(this), 1000);
         socket.emit("wizz");
       },
       onWizzReceived(user) {
-        if(this.state.user) {
+        if (this.state.user) {
           chatStore.sendMessageWithBot(`${user.username} a envoyé un putain de wizz de fdp`);
           store.setWizzing(true);
           new Audio(wizzSound).play();
           this.$nextTick(() => {
             let chat = document.querySelector(".chat-room");
-            if(chat) chat.scrollTop = document.querySelector(".chat-room").scrollHeight;
+            if (chat) chat.scrollTop = document.querySelector(".chat-room").scrollHeight;
           });
           console.log("wizz reçu");
         }

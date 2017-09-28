@@ -3,6 +3,7 @@ import Message from "../models/Message";
 import User from '../models/User'
 
 
+import appStore from '../stores/AppStore'
 
 class ChatStore {
 
@@ -24,6 +25,10 @@ class ChatStore {
 
   pushMessage(message) {
     this.state.messages.push(message);
+  }
+
+  isMessageFromCurrentUser(message) {
+    return appStore.state.user.id === message.author.id;
   }
 
 }

@@ -19,6 +19,7 @@
     name: 'blob',
     props: {
       color: {type: String, default: "red"},
+      moving: {type: Boolean, default: false},
       size: {type: Number, default: 100}
     },
     computed: {
@@ -27,8 +28,8 @@
       }
     },
     created() {
-      this.duration = random(1,10);
-      console.log(this.duration);
+      let durations = [4000,7000,10000,150000];
+      this.duration = durations[Math.floor(Math.random()*durations.length)];
       this.d = shuffle([
         {value: "M72.4,44.32a34,34,0,0,0-55-35.74A22.49,22.49,0,0,0,9.36,48.76a34,34,0,0,0,34.49,19A18.48,18.48,0,1,0,72.4,44.32Z"},
         {value: "M72.4,44.32a34,34,0,0,0-45-35.74A22.49,22.49,0,0,0,9.36,48.76a34,34,0,0,0,21.49,19A18.48,18.48,0,1,0,72.4,44.32Z"},
@@ -37,14 +38,16 @@
       ]);
     },
     mounted() {
-      let morphing = anime({
-        targets: '#morphing .pathmorth',
-        d: this.d,
-        easing: 'easeInElastic',
-        direction: 'alternate',
-        duration: 7000,
-        loop: true
-      }).play();
+//      let morphing = anime({
+//        targets: '#morphing .pathmorth',
+//        d: this.d,
+//        easing: 'easeInElastic',
+//        direction: 'alternate',
+//        duration: this.duration,
+//        loop: true
+//      }).play();
+      if(this.moving) {
+      }
     }
   }
 </script>
@@ -59,4 +62,9 @@
       fill: currentColor;
     }
   }
+
+  .blob {
+    transition: all 10s;
+  }
+
 </style>

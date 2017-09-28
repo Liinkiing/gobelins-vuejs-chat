@@ -1,8 +1,12 @@
 <template>
   <div class="users-list">
     <ul>
-      <li class="current-user user-color-red"><span class="circle">&nbsp;</span>{{ currentUser.username }} (vous)</li>
-      <li :class="`user-color-${randomColor}`" v-for="user in users"><span class="circle">&nbsp;</span>{{ user.username }}</li>
+      <li :class="`current-user user-color-${appStore.state.user.color}`"><span
+        class="circle">&nbsp;</span>{{ appStore.state.user.username }} (vous)
+      </li>
+      <li :class="`user-color-${user.color}`" v-for="user in users"><span class="circle">&nbsp;</span>{{ user.username
+        }}
+      </li>
     </ul>
   </div>
 </template>
@@ -11,22 +15,15 @@
 
   import appStore from '../../stores/AppStore';
 
+  import {socket} from '../../main';
+
   export default {
     name: 'usersList',
-    components: {
-
-    },
+    components: {},
     data() {
       return {
-        currentUser: appStore.state.user
+        appStore
       }
-    },
-    computed: {
-        randomColor() {
-          let colors = ["red", "rose", "light_green", "violet", "orange", "pale_red", "cyan", "dark_green",
-            "pale_green", "pale_yellow", "yellow", "blue"];
-          return colors[Math.floor(Math.random()*colors.length)];
-        }
     },
     props: {
       users: {type: Array, required: true}
@@ -64,8 +61,8 @@
           &:before {
             content: "";
             position: absolute;
-            top:2px;
-            left:-25px;
+            top: 2px;
+            left: -25px;
             width: 15px;
             height: 15px;
             border-radius: 100%;

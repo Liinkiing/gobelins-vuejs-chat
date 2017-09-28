@@ -1,12 +1,10 @@
 <template>
   <div class="page page-login">
+    <blob-banner :blobs-count="30"></blob-banner>
+
     <form @submit.prevent="connectUser">
       <label>Personnalise ton interface :</label>
       <theme-switcher></theme-switcher>
-      <blob></blob>
-      <blob color="blue"></blob>
-      <blob color="pale_green"></blob>
-      <blob color="yellow"></blob>
       <label for="username">Nom d'utilisateur</label>
       <input type="text" id="username" v-model="username" placeholder="Votre nom d'utilisateur">
       <span class="separator">&nbsp;</span>
@@ -24,9 +22,11 @@
   import Toggle from "../ui/Toggle.vue";
   import ThemeSwitcher from "../ui/ThemeSwitcher.vue";
   import Blob from "../ui/Blob.vue";
+  import BlobBanner from "../ui/BlobBanner.vue";
 
   export default {
     components: {
+      BlobBanner,
       Blob,
       ThemeSwitcher
     },
