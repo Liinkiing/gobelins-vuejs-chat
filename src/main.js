@@ -7,7 +7,7 @@ import router from './router'
 
 import 'animate.css/animate.css'
 
-// export const socket = io.connect("http://bddi-chat2017.herokuapp.com/");
+// export const socket = io.connect("https://bddi-chat2017.herokuapp.com/");
 export const socket = io.connect("http://localhost:3000");
 
 export const EventBus = new Vue();

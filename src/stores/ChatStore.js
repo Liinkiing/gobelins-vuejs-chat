@@ -10,17 +10,23 @@ class ChatStore {
   constructor() {
     this.state = {
       messages: [],
-      someoneWriting: false
+      someoneWriting: false,
+      messageSize: "medium"
     }
+  }
+
+  setFontSize(size) {
+    this.state.messageSize = size;
+    EventBus.$emit("fontsize.changed", size);
   }
 
   setSomeoneWriting(value) {
     this.state.someoneWriting = value;
   }
 
-  addMessage(body, isBot = false) {
-    console.log(body);
-    if(!isBot) EventBus.$emit('message.send', body);
+  addMessage(body, isBot = false, size = "medium") {
+    console.log(body, size);
+    if(!isBot) EventBus.$emit('message.send', body, size);
   }
 
   sendMessageWithBot(text) {

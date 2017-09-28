@@ -44,7 +44,7 @@
       max-width: 300px;
     }
     & .chat {
-      padding: 60px 0;
+      padding: 42px 0;
       flex: 2;
       display: flex;
       flex-direction: column;

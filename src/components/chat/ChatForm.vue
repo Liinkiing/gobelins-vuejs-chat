@@ -1,12 +1,19 @@
 <template>
   <div>
     <form @submit.prevent="send">
-      <input ref="inputMessage" type="text" placeholder="Votre message..." v-model="message">
-      <button class="button">Envoyer</button>
-      <button class="button" :disabled="!appState.canWizz" type="button" @click="sendWizz">Wizz</button>
-      <transition name="fade">
-        <span v-if="error" class="error">{{ error }}</span>
-      </transition>
+      <div class="form-group">
+        <blob :color="appState.user.color"></blob>
+        <input class="chat-input" ref="inputMessage" type="text" placeholder="Votre message..." v-model="message">
+      </div>
+      <div class="form-group">
+        <button class="button">Envoyer</button>
+        <button class="button" :disabled="!appState.canWizz" type="button" @click="sendWizz">Wizz</button>
+        <blob-size-switcher></blob-size-switcher>
+        <transition name="fade">
+          <span v-if="error" class="error">{{ error }}</span>
+        </transition>
+      </div>
+
     </form>
   </div>
 </template>
@@ -23,14 +30,20 @@
   import {socket, EventBus} from '../../main';
   import debounce from 'lodash.debounce';
   import throttle from 'lodash.throttle';
+  import Blob from "../ui/Blob.vue";
+  import BlobSizeSwitcher from "../ui/BlobSizeSwitcher.vue";
 
   export default {
+    components: {
+      BlobSizeSwitcher,
+      Blob},
     name: 'ChatForm',
     data() {
       return {
         error: null,
         appState: appStore.state,
-        message: ""
+        message: "",
+        chatState: chatStore.state
       }
     },
     created() {
@@ -48,16 +61,15 @@
     },
     mounted() {
       this.$refs.inputMessage.addEventListener('keydown', throttle((e) => {
-        console.log(e);
-        if(e.keyCode >= 32 && !e.metaKey && !e.altKey) {
+        if (e.keyCode >= 32 && !e.metaKey && !e.altKey && !e.ctrlKey) {
           EventBus.$emit('typing', appStore.state.user);
         }
-      }, 1000));
+      }, 100));
       this.$refs.inputMessage.addEventListener('keyup', debounce((e) => {
-        if(e.keyCode >= 32 && !e.metaKey && !e.altKey) {
+        if (e.keyCode >= 32 && !e.metaKey && !e.altKey) {
           EventBus.$emit('stop typing', appStore.state.user);
         }
-      }, 1000));
+      }, 100));
     },
     methods: {
       send() {
@@ -67,7 +79,7 @@
         } else if (this.message.startsWith("/")) {
           socket.emit('command', this.message);
         } else {
-          chatStore.addMessage(this.message);
+          chatStore.addMessage(this.message, false, this.chatState.messageSize);
           this.message = "";
         }
       },
@@ -85,6 +97,16 @@
 </script>
 
 <style lang="scss">
+
+  @import "../../styles/utils/palette";
+  @import "../../styles/utils/variables";
+
+  input.chat-input {
+    background: $white_grey;
+    border-radius: $border_radius;
+    padding: 20px;
+  }
+
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }

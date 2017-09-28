@@ -2,7 +2,9 @@
   <div class="display: none;"></div>
 </template>
 
-<style>
+<style lang="scss">
+
+  @import "../../styles/utils/_palette.scss";
 
   @keyframes headShake {
     0% {
@@ -14,34 +16,45 @@
     6.5% {
       -webkit-transform: translateX(-12px) rotateY(-19deg);
       transform: translateX(-12px) rotateY(-19deg);
-      background: hsl(100, 100%, 50%);
+      background: $pale_green;
 
     }
 
     18.5% {
       -webkit-transform: translateX(10px) rotateY(14deg);
       transform: translateX(10px) rotateY(14deg);
-      background: hsl(200, 100%, 50%);
+      background: $blue;
 
     }
 
     31.5% {
       -webkit-transform: translateX(-6px) rotateY(-10deg);
       transform: translateX(-6px) rotateY(-10deg);
-      background: hsl(300, 100%, 50%);
+      background: $violet;
 
     }
 
     43.5% {
       -webkit-transform: translateX(4px) rotateY(6deg);
       transform: translateX(4px) rotateY(6deg);
-      background: hsl(56, 100%, 64%);
+      background: $yellow;
 
     }
 
-    50% {
+    60% {
+      -webkit-transform: translateX(4px) rotateY(6deg);
+      transform: translateX(4px) rotateY(6deg);
+      background: $rose;
+    }
+
+    80% {
+      background: $red;
+    }
+
+    100% {
       -webkit-transform: translateX(0);
       transform: translateX(0);
+      background: $shark_dark_grey
     }
   }
 </style>

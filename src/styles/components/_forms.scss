@@ -1,0 +1,23 @@
+form {
+
+  & input {
+    color: $shark_darker_grey;
+  }
+
+  & .form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+}
+
+body.theme-light {
+  & form {
+    & input.chat-input {
+      height: 80px;
+      background: $shark_dark_grey;
+      color: $whitesmoke;
+    }
+  }
+}
