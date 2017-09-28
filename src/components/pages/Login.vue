@@ -3,6 +3,9 @@
     <form @submit.prevent="connectUser">
       <label>Personnalise ton interface :</label>
       <theme-switcher></theme-switcher>
+      <blob></blob>
+      <blob color="blue"></blob>
+      <blob color="pale_green"></blob>
       <label for="username">Nom d'utilisateur</label>
       <input type="text" id="username" v-model="username" placeholder="Votre nom d'utilisateur">
       <span class="separator">&nbsp;</span>
@@ -19,9 +22,11 @@
   import {EventBus} from '../../main'
   import Toggle from "../ui/Toggle.vue";
   import ThemeSwitcher from "../ui/ThemeSwitcher.vue";
+  import Blob from "../ui/Blob.vue";
 
   export default {
     components: {
+      Blob,
       ThemeSwitcher
     },
     name: 'login',
@@ -73,6 +78,9 @@
       min-width: 350px;
       & label {
         display: block;
+        &.switch {
+          margin-left: 0;
+        }
       }
       & input {
         display: block;
