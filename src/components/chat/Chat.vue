@@ -55,8 +55,6 @@
         chatStore.pushMessage(message);
         this.$nextTick(() => {
           this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
-          let newMessageBlob = this.$refs.chat.lastChild.querySelector('.blob-chat');
-          console.log(newMessageBlob.getBoundingClientRect());
         });
       });
 
