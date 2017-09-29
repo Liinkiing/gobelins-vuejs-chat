@@ -2,6 +2,9 @@ form {
 
   & input {
     color: $shark_darker_grey;
+    &.login-input {
+      color: $whitesmoke;
+    }
   }
 
   & .form-group {

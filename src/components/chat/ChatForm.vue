@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="send">
       <div class="form-group">
-        <blob :color="appState.user.color"></blob>
+        <blob class="blob-user" :color="appState.user.color"></blob>
         <input class="chat-input" ref="inputMessage" type="text" placeholder="Votre message..." v-model="message">
       </div>
       <div class="form-group">

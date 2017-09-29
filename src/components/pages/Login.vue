@@ -6,7 +6,7 @@
       <label>Personnalise ton interface :</label>
       <theme-switcher></theme-switcher>
       <label for="username">Nom d'utilisateur</label>
-      <input type="text" id="username" v-model="username" placeholder="Votre nom d'utilisateur">
+      <input class="login-input" type="text" id="username" v-model="username" placeholder="Votre nom d'utilisateur">
       <span class="separator">&nbsp;</span>
       <button :disabled="username === ''" class="button" type="submit">Valider</button>
     </form>

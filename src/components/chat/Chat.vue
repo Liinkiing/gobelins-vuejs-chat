@@ -1,7 +1,9 @@
 <template>
   <div class="chat">
-    <ul class="chat-room" ref="chat" >
-      <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
+    <ul class="chat-room" ref="chat">
+      <transition-group name="blur">
+        <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
+      </transition-group>
     </ul>
     <span v-if="state.someoneWriting" class="is-writing">Quelqu'un est en train d'écrire...</span>
     <chat-form></chat-form>
@@ -12,6 +14,7 @@
   import ChatForm from "./ChatForm.vue";
   import chatStore from '../../stores/ChatStore';
   import {EventBus, socket} from "../../main";
+  import anime from 'animejs';
   import ChatMessage from "./ChatMessage.vue";
 
 
@@ -52,6 +55,8 @@
         chatStore.pushMessage(message);
         this.$nextTick(() => {
           this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
+          let newMessageBlob = this.$refs.chat.lastChild.querySelector('.blob-chat');
+          console.log(newMessageBlob.getBoundingClientRect());
         });
       });
 
@@ -65,9 +70,23 @@
 </script>
 
 <style lang="scss">
+
+  .blur-enter-active, .blur-leave-active {
+    transition: opacity .5s, filter 0.3s, transform 0.5s;
+  }
+
+  .blur-enter, .blur-leave-to {
+    transform: scale3d(0.8,0.8,0.8);
+    transform-origin: left center;
+    opacity: 0;
+    filter: blur(10px);
+    position: relative;
+  }
   .chat-room {
     max-height: calc(100vh - 280px);
     overflow: auto;
     flex: 1;
+    padding-left: 0;
+    margin: 0;
   }
 </style>

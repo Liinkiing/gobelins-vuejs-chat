@@ -4,9 +4,12 @@
       <li v-if="appStore.state.user" :class="`current-user user-color-${appStore.state.user.color}`"><span
         class="circle">&nbsp;</span>{{ appStore.state.user.username }} (vous)
       </li>
-      <li :class="`user-color-${user.color}`" v-for="user in users"><span class="circle">&nbsp;</span>{{ user.username
-        }}
-      </li>
+      <transition-group name="blur" mode="out-in">
+        <li :class="`user-color-${user.color}`" v-for="user in users" :key="user.id"><span class="circle">&nbsp;</span>{{ user.username
+          }}
+        </li>
+      </transition-group>
+
     </ul>
   </div>
 </template>

@@ -13,6 +13,13 @@ body, button, input, label {
 }
 
 
+@each $color in $colorsName {
+  span.color-#{$color} {
+    color: #{map_get($colors, $color)};
+  }
+}
+
+
 body {
   overflow: hidden;
   transition: all $transition_duration ease-in-out;
