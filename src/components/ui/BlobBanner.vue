@@ -1,6 +1,6 @@
 <template>
   <div class="blob-banner">
-    <blob :moving="true" :style="style()" v-for="i in blobs" :key="i" :color="randomColor()" :size="size()"></blob>
+    <blob :moving="true" :style="style()" v-for="i in blobs" :key="i" :index="i" :color="randomColor()" :size="size()"></blob>
   </div>
 </template>
 
@@ -59,7 +59,7 @@
     z-index: -1;
     top: 0;
     left: 10%;
-    animation: blobAnimation 160s infinite;
+    animation: blobAnimation 100s infinite;
   }
 
   @keyframes blobAnimation {

@@ -17,6 +17,7 @@
     "animate.css": "^3.5.2",
     "animejs": "^2.2.0",
     "blueimp-md5": "^2.10.0",
+    "kute.js": "^1.6.4",
     "lodash.debounce": "^4.0.8",
     "lodash.random": "^3.2.0",
     "lodash.shuffle": "^4.2.0",

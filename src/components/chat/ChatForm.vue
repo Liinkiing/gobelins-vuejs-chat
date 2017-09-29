@@ -64,12 +64,12 @@
         if (e.keyCode >= 32 && !e.metaKey && !e.altKey && !e.ctrlKey) {
           EventBus.$emit('typing', appStore.state.user);
         }
-      }, 100));
+      }, 200));
       this.$refs.inputMessage.addEventListener('keyup', debounce((e) => {
         if (e.keyCode >= 32 && !e.metaKey && !e.altKey) {
           EventBus.$emit('stop typing', appStore.state.user);
         }
-      }, 100));
+      }, 200));
     },
     methods: {
       send() {

@@ -1,6 +1,6 @@
 <template>
   <li class="chat-message" :class="[message.size, {'bot-message': message.isBot}]">
-    <blob v-if="!message.isBot" class="blob-chat" :size="size" :color="message.author.color"></blob>
+    <blob v-if="!message.isBot" class="blob-chat" :size="size" :color="message.author.color" :timestamp="message.createdAt"></blob>
     <div class="chat-message-content">
       <span v-if="!message.isBot" class="author" :class="`color-${message.author.color}`">{{ message.author.username }} <span class="timestamp">{{ new Date(message.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</span>
 </span>
@@ -11,6 +11,8 @@
 
 <script>
   import Blob from "../ui/Blob.vue";
+  import chatStore from '../../stores/ChatStore';
+  import appStore from '../../stores/AppStore';
 
   export default {
     components: {Blob},
