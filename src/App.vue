@@ -105,7 +105,7 @@
       },
       onWizzReceived(user) {
         if (this.state.user) {
-          chatStore.sendMessageWithBot(`${user.username} a envoyé un putain de wizz de fdp`);
+          chatStore.sendMessageWithBot(`${user.username} a envoyé un wizz`);
           store.setWizzing(true);
           new Audio(wizzSound).play();
           this.$nextTick(() => {

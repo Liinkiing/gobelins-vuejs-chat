@@ -1,7 +1,7 @@
 <template>
   <div class="page page-home">
     <users-list :users="state.users"></users-list>
-    <chat :messages="chatState.messages"></chat>
+    <chat :user="state.user" :messages="chatState.messages"></chat>
     <chat-menu></chat-menu>
   </div>
 </template>
@@ -44,7 +44,7 @@
       max-width: 300px;
     }
     & .chat {
-      padding: 42px 0;
+      padding: 0 0 42px 0;
       flex: 2;
       display: flex;
       flex-direction: column;

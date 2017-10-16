@@ -1,6 +1,6 @@
 <template>
   <div class="blob-banner">
-    <blob :moving="true" :style="style()" v-for="i in blobs" :key="i" :index="i" :color="randomColor()" :size="size()"></blob>
+    <blob :style="style()" v-for="i in blobs" :key="i" :color="randomColor()" :size="size()"></blob>
   </div>
 </template>
 
@@ -34,8 +34,7 @@
         return colors[Math.floor(Math.random()*colors.length)];
       },
       size() {
-        let sizes = [60,70,80,90,100,110,120,130,140,150,160];
-        return sizes[Math.floor(Math.random()*sizes.length)];
+        return random(0.5,0.7);
       },
       style() {
         let final = {position: "relative"};

@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="send">
       <div class="form-group">
-        <blob class="blob-user" :color="appState.user.color"></blob>
+        <blob :size="0.5" class="blob-user" :color="appState.user.color"></blob>
         <input class="chat-input" ref="inputMessage" type="text" placeholder="Votre message..." v-model="message">
       </div>
       <div class="form-group">
@@ -43,11 +43,11 @@
         error: null,
         appState: appStore.state,
         message: "",
+        color: "red",
         chatState: chatStore.state
       }
     },
     created() {
-      console.log("créé");
       socket.on('command issued', (data) => {
         if (data.command === "PLAY_AUDIO") {
           if (data.payload === "johncena") {
@@ -60,6 +60,7 @@
       })
     },
     mounted() {
+      console.log("user", this.user);
       this.$refs.inputMessage.addEventListener('keydown', throttle((e) => {
         if (e.keyCode >= 32 && !e.metaKey && !e.altKey && !e.ctrlKey) {
           EventBus.$emit('typing', appStore.state.user);
@@ -71,6 +72,7 @@
         }
       }, 200));
     },
+
     methods: {
       send() {
         if (this.message === "") {
@@ -100,6 +102,12 @@
 
   @import "../../styles/utils/palette";
   @import "../../styles/utils/variables";
+
+  .blob-user {
+    margin-left: -40px;
+    width: 200px;
+    text-align: center;
+  }
 
   input.chat-input {
     background: $white_grey;

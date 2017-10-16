@@ -5,10 +5,14 @@ form {
     &.login-input {
       color: $whitesmoke;
     }
+    &.chat-input {
+      height: 80px;
+    }
   }
 
   & .form-group {
     display: flex;
+    max-height: 160px;
     flex-direction: row;
     align-items: center;
   }
@@ -18,7 +22,6 @@ form {
 body.theme-light {
   & form {
     & input.chat-input {
-      height: 80px;
       background: $shark_dark_grey;
       color: $whitesmoke;
     }

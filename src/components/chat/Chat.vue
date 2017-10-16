@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <ul class="chat-room" ref="chat">
-      <transition-group name="blur">
+      <transition-group name="blur" tag="div" style="position: relative;">
         <chat-message v-for="message in messages" :message="message" :key="message.createdAt"></chat-message>
       </transition-group>
     </ul>
@@ -57,6 +57,7 @@
           this.$refs.chat.scrollTop = this.$refs.chat.scrollHeight;
         });
       });
+      console.log()
 
     },
     beforeDestroy() {
@@ -68,6 +69,8 @@
 </script>
 
 <style lang="scss">
+
+  @import "../../styles/utils/palette";
 
   .blur-enter-active, .blur-leave-active {
     transition: opacity .5s, filter 0.3s, transform 0.5s;
@@ -86,5 +89,9 @@
     flex: 1;
     padding-left: 0;
     margin: 0;
+  }
+
+  body.theme-light span.is-writing {
+    color: $shark_dark_grey;
   }
 </style>
